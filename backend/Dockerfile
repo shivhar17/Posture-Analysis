@@ -1,10 +1,15 @@
-﻿FROM python:3.11-slim
+FROM python:3.11-slim
 
-# Install system dependencies needed by OpenCV and MediaPipe
+# Install system dependencies needed by OpenCV and MediaPipe (including OpenGL/EGL)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
+    libegl1 \
+    libgles2 \
     libglib2.0-0 \
     libgomp1 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
     curl \
     && rm -rf /var/lib/apt/lists/*
 

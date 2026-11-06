@@ -1,4 +1,4 @@
-﻿import os
+import os
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -50,28 +50,36 @@ class PoseDetector:
         if not os.path.exists(self.model_path):
             raise FileNotFoundError(f"MediaPipe Pose model not found at {self.model_path}")
             
-        base_options = python.BaseOptions(model_asset_path=self.model_path)
-        options = vision.PoseLandmarkerOptions(
-            base_options=base_options,
-            output_segmentation_masks=False,
-            min_pose_detection_confidence=0.5,
-            min_pose_presence_confidence=0.5,
-            min_tracking_confidence=0.5,
-            num_poses=3 # Support multiple people detection
-        )
-        self.detector = vision.PoseLandmarker.create_from_options(options)
+        self.detector = None
+        self.init_error = None
+        try:
+            base_options = python.BaseOptions(model_asset_path=self.model_path)
+            options = vision.PoseLandmarkerOptions(
+                base_options=base_options,
+                output_segmentation_masks=False,
+                min_pose_detection_confidence=0.5,
+                min_pose_presence_confidence=0.5,
+                min_tracking_confidence=0.5,
+                num_poses=3 # Support multiple people detection
+            )
+            self.detector = vision.PoseLandmarker.create_from_options(options)
+            print("[PoseDetector] MediaPipe PoseLandmarker initialized successfully.")
+        except Exception as e:
+            self.init_error = str(e)
+            print(f"[PoseDetector] Warning: MediaPipe Pose initialization error: {e}")
         
     def detect_landmarks(self, image_bgr):
         """
         Detects body pose landmarks in a BGR OpenCV image.
-        Returns:
-            dict containing:
-                'detected': bool,
-                'num_people': int,
-                'landmarks_normalized': list of landmarks or None,
-                'landmarks_pixel': dict of key points in (x, y, z, vis),
-                'visibility_warning': str or None
         """
+        if not self.detector:
+            return {
+                "detected": False,
+                "num_people": 0,
+                "landmarks_normalized": None,
+                "landmarks_pixel": None,
+                "visibility_warning": f"Pose detector offline: {self.init_error}"
+            }
         h, w, _ = image_bgr.shape
         # Convert BGR to RGB
         image_rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
