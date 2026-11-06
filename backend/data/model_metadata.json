@@ -1,0 +1,181 @@
+{
+  "status": "trained",
+  "model_type": "Random Forest Classifier",
+  "comparison_model": "Support Vector Machine (RBF)",
+  "features": [
+    "craniovertebral_angle",
+    "trunk_inclination",
+    "shoulder_tilt",
+    "lateral_tilt",
+    "hip_flexion",
+    "knee_flexion",
+    "neck_flexion",
+    "shoulder_hip_ratio"
+  ],
+  "class_names": [
+    "Forward Head Posture",
+    "Good Posture",
+    "Incorrect Forward Bending",
+    "Incorrect Lifting Posture",
+    "Left / Right Side Leaning",
+    "Slouching / Rounded Back",
+    "Uneven Shoulder Alignment"
+  ],
+  "training_samples": 3920,
+  "testing_samples": 980,
+  "participant_split": true,
+  "metrics": {
+    "random_forest": {
+      "accuracy": 0.9969,
+      "precision": 0.997,
+      "recall": 0.9969,
+      "f1_score": 0.9969,
+      "confusion_matrix": [
+        [
+          140,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          140,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          139,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          140,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          140,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          139,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          139
+        ]
+      ]
+    },
+    "svm": {
+      "accuracy": 0.9949,
+      "precision": 0.995,
+      "recall": 0.9949,
+      "f1_score": 0.9949,
+      "confusion_matrix": [
+        [
+          140,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          140,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          137,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          140,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          140,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          139,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          139
+        ]
+      ]
+    }
+  },
+  "feature_importances": {
+    "craniovertebral_angle": 0.0792,
+    "trunk_inclination": 0.1674,
+    "shoulder_tilt": 0.1434,
+    "lateral_tilt": 0.1401,
+    "hip_flexion": 0.1915,
+    "knee_flexion": 0.1207,
+    "neck_flexion": 0.1101,
+    "shoulder_hip_ratio": 0.0477
+  }
+}
